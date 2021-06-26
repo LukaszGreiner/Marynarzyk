@@ -36,3 +36,4 @@ else if (player1 === "nożyce") {
     }
 }
 
+//
