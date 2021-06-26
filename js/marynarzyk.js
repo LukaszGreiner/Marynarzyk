@@ -1,59 +1,101 @@
-// gra w marynarzyka
+// Gra w marynarzyka
+const initGame = () => {
+    const startGame = confirm("Zagramy partyjke w marynarzyka?");
+    startGame ? playGame() : alert("Ok, może następnym razem");
+}
 
-//pobieranie danych
-let playGame = confirm("Zagramy partyjke?");
-if(playGame) {
-    //play
-    while (playGame) {
-    const playerChoice = prompt("Wybierz kamień, papier lub nożyce!")
-    if(playerChoice || playerChoice === "") {
-        const player1 = playerChoice.trim().toLowerCase();
-        if (
-            player1 === "kamień" ||
-            player1 === "papier" ||
-            player1 === "nożyce"
-            ){
-            //gra
-            
-//losowanie przez komputer
-const computerChoice = Math.floor(Math.random() * 3);
-const kpnArray = ["kamień", "papier", "nożyce"];
-const player2 = kpnArray[computerChoice];
-
-const result =
-//tie game
-player1 === player2
-? "Remis"
-
-//player1 rock
-: player1 === "kamień" && player2 === "nożyce"
-? "Wygrałeś!"
-
-//player1 paper
-: player1 === "papier" && player2 === "kamień"
-? "Wygrałeś!"
-
-//player1 scisors
-: player1 === "nożyce" && player2 === "papier"
-? "Wygrałeś!"
-: "Przegrałeś :("
-
-//alert
-alert(`Ty: ${player1}\nKomputer: ${player2}\n${result}`);
-
-//play again
-playGame = confirm("Zagramy jeszcze raz?");
-if (!playGame) alert ("Szkoda, spróbujmy kiedy indziej.")
-continue;
-}else {
-            alert("Nie podałeś poprawnego ruchu.");
+const playGame = () => {
+    while (true) {
+        let playerChoice = getplayerChoice();
+        playerChoice = formatplayerChoice(playerChoice);
+        if (playerChoice === "") {
+            invalidChoice();
             continue;
         }
-    }else {
-        alert("Szkoda, spróbujmy kiedy indziej.")
-        break;
+        if (!playerChoice) {
+            decideNotToPlay();
+            break;
+        }
+        playerChoice = evaluatePlayerChoice(playerChoice);
+        if (!playerChoice) {
+            invalidChoice();
+            continue;
+        }
+        const computerChoice = getComputerChoice();
+        const result = determineWinner(playerChoice, computerChoice);
+        displayResult(result);
+        if (askToPlayAgain()) {
+            continue;
+        } else {
+            thanksForPlaying();
+            break;
+        }
     }
+};
+
+const getplayerChoice = () => {
+    return prompt("Wybierz kamień, papier lub nożyce");
+};
+
+const formatplayerChoice = (playerChoice) => {
+    if (playerChoice || playerChoice === "") {
+        return playerChoice.trim().toLowerCase();
+    } else {
+        return false;
+    }
+};
+
+const decideNotToPlay = () => {
+    alert("Ok, może zagramy następnym razem.");
+};
+
+const evaluatePlayerChoice = (playerChoice) => {
+    if (
+        playerChoice === "kamień" ||
+        playerChoice === "papier" ||
+        playerChoice === "nożyce"
+    ) {
+        return playerChoice;
+    } else {
+        return false;
+    }
+};
+
+const invalidChoice = () => {
+    alert("Proszę wybrać kamień, papier lub nożyce.");
+};
+
+const getComputerChoice = () => {
+    const randomNumber = Math.floor(Math.random() * 3);
+    const rpsArrat = ["kamień", "papier", "nożyce"]
+    return rpsArrat[randomNumber];
+};
+
+const determineWinner = (player, computer) => {
+    const winner =
+    player === computer
+    ? `Ty: ${player}\nKomputer: ${computer}\nRemis`
+    : player === "kamień" && computer === "papier"
+    ? `Ty: ${player}\nKomputer: ${computer}\nPrzegrałeś :(`
+    : player === "papier" && computer === "nożyce"
+    ? `Ty: ${player}\nKomputer: ${computer}\nPrzegrałeś :(`
+    : player === "nożyce" && computer === "kamień"
+    ? `Ty: ${player}\nKomputer: ${computer}\nPrzegrałeś :(`
+    : `Ty: ${player}\nKomputer: ${computer}\nWygrałeś!`;
+
+    return winner;
+};
+
+const displayResult = (result) => {
+    alert(result);
+};
+
+const askToPlayAgain = () => {
+    return confirm("Zagramy jeszcze raz?");
+};
+
+const thanksForPlaying = () => {
+    alert("Ok, bywaj.")
 }
-}else {
-    alert("Ok, może następnym razem.")
-}
+
+initGame();
