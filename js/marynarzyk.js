@@ -35,5 +35,3 @@ else if (player1 === "nożyce") {
         alert("Gracz 1 wygrywa");
     }
 }
-
-//
