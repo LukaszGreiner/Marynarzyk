@@ -2,8 +2,19 @@
 
 //pobieranie danych
 
-let player1 = prompt("Podaj swój ruch");
- 
+let playGame = confirm("Zagramy partyjke?");
+if(playGame) {
+    //play
+    let playerChoice = prompt("Wybierz kamień, papier lub nożyce!")
+    if(playerChoice) {
+        let player1 = playerChoice.trim().toLowerCase();
+        if (
+            player1 === "kamień" ||
+            player1 === "papier" ||
+            player1 === "nożyce"
+            ){
+            //gra
+            
 //losowanie przez komputer
 let computer = Math.floor(Math.random() * 3) + 1;
 
@@ -16,7 +27,7 @@ computer === 1
 ? "nożyce"
 : "Error"
 
-alert(`Komputer wylosował ${player2}`);
+//alert(`Komputer wylosował ${player2}`);
 
 let result =
 //tie game
@@ -35,4 +46,16 @@ player1 === player2
 : player1 === "nożyce" && player2 === "papier"
 ? "Wygrałeś!"
 : "Przegrałeś :("
-alert(result);
+alert(`Ty: ${player1}\nKomputer: ${player2}\n${result}`);
+//play again
+let playAgain = confirm("Chcesz zagrać jeszcze raz?");
+playAgain ? location.reload() : alert("Ok, bywaj");
+        }else {
+            alert("Nie podałeś poprawnego ruchu.");
+        }
+    }else {
+        alert("Szkoda, spróbujmy kiedy indziej.")
+    }
+}else {
+    alert("Ok, może następnym razem.")
+}
