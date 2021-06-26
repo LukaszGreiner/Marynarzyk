@@ -2,7 +2,35 @@
 
 //pobieranie danych
 let player1 = prompt("Gracz1 podaj swój ruch");
-let player2 = prompt("Gracz2 podaj swój ruch");
+let player2;
+
+//losowanie komputera
+let computer = Math.floor(Math.random() * 3) + 1;
+
+switch (computer) {
+
+    case 1:
+        if(computer === 1) {
+        alert("Komputer wylosował kamień");
+        player2 = "kamień";
+    }
+        break;
+
+    case 2:
+        if(computer === 2) {
+        alert("Komputer wylosował papier");
+        player2 = "papier";
+    }
+        break;
+    
+    case 3:
+        if(computer === 3) {
+        alert("Komputer wylosował nożyce");
+        player2 = "nożyce";
+        }
+        break;
+}
+
 
 //remis
 if(player1 === player2)
@@ -12,26 +40,27 @@ if(player1 === player2)
 //player1 kamień
 else if (player1 === "kamień") {
     if(player2 ==="papier") {
-        alert("Gracz 2 wygrywa");
+        alert("Przegrałeś");
     }else {
-        alert("Gracz 1 wygrywa");
+        alert("Wygrałeś!");
     }
 }
 //player1 papier
 else if (player1 === "papier") {
     if (player2 === "nożyce") {
-    alert("Gracz 2 wygrywa");
+    alert("Przegrałeś");
     }
     else {
-        alert("Gracz 1 wygrywa");
+        alert("Wygrałeś!");
     }
 }
 //player1 nożyce
 else if (player1 === "nożyce") {
     if (player2 === "kamień") {
-    alert("Gracz 2 wygrywa");
+    alert("Przegrałeś");
     }
     else {
-        alert("Gracz 1 wygrywa");
+        alert("Wygrałeś!");
     }
 }
+
